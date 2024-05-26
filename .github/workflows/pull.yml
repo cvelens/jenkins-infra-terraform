@@ -1,5 +1,5 @@
 
-name: Validate Terraform
+name: Validate Terraform Template
 
 on:
   workflow_dispatch:
