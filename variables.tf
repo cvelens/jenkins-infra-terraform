@@ -1,6 +1,6 @@
 variable "profile" {
   type        = string
-  default     = "demo"
+  default     = "infra"
   description = "Account in which the resources will be deployed"
 }
 
@@ -77,13 +77,6 @@ variable "jenkins_ingress_rules" {
 
   default = [
     {
-      from_port   = 22
-      to_port     = 22
-      protocol    = "tcp"
-      cidr_block  = "0.0.0.0/0"
-      description = "SSH"
-    },
-    {
       from_port   = 80
       to_port     = 80
       protocol    = "tcp"
@@ -126,11 +119,18 @@ variable "jenkins_egress_rules" {
 
   default = [
     {
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
       cidr_block  = "0.0.0.0/0"
-      description = "Allow Outbound Traffic"
+      description = "Outbound HTTP"
     },
+    {
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      cidr_block  = "0.0.0.0/0"
+      description = "Outbound HTTPS"
+    }
   ]
 }
