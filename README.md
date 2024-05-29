@@ -13,6 +13,7 @@ Before getting started, ensure you have the following:
 ## Repository Structure
 
 The repository has the following structure:
+```
 ├── infra.tf
 ├── provider.tf
 ├── variables.tf
@@ -20,6 +21,7 @@ The repository has the following structure:
 └── .github
 └── workflows
 └── pull.yml
+```
 
 - `infra.tf`: The main Terraform configuration file that defines the infrastructure resources.
 - `provider.tf`: Specifies the AWS provider and region for Terraform.
