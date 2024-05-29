@@ -38,7 +38,7 @@ The Terraform configuration creates the following infrastructure components:
 - Route Table: Defines the routing rules for the public subnet.
 - Security Group: Controls inbound and outbound traffic to the Jenkins EC2 instance.
 - EC2 Instance: The instance running Jenkins with the specified AMI and instance type.
-- Elastic IP: A static public IP address associated with the Jenkins EC2 instance.
+- Elastic IP: A pre-created static public IP address is associated with the Jenkins EC2 instance.
 
 ## Usage
 
