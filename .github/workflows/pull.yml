@@ -1,26 +1,26 @@
-
+---
 name: Validate Terraform
 
-on:
+"on":
   workflow_dispatch:
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   terraform_validate_job:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Setting up Hashicorp Terraform
-      uses: hashicorp/setup-terraform@v3
-      with:
-        terraform_version: 1.8.4
+      - uses: actions/checkout@v4
+      - name: Setting up Hashicorp Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.8.4
 
-    - name: Terraform init
-      run: terraform init
+      - name: Terraform init
+        run: terraform init
 
-    - name: Terraform FMT
-      run: terraform fmt
+      - name: Terraform FMT
+        run: terraform fmt
 
-    - name: Terraform template validation
-      run: terraform validate
+      - name: Terraform template validation
+        run: terraform validate
