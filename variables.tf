@@ -44,7 +44,7 @@ variable "ami_id" {
 
 variable "ec2_instance_type" {
   type        = string
-  default     = "t2.micro"
+  default     = "t3.medium"
   description = "EC2 Instance Type"
 }
 
