@@ -18,15 +18,14 @@ The repository has the following structure:
 ├── provider.tf
 ├── variables.tf
 ├── versions.tf
-└── .github
-└── workflows
-└── pull.yml
+└── .gitignore
+└── Jenkinsfile
 ```
 
 - `infra.tf`: The main Terraform configuration file that defines the infrastructure resources.
 - `provider.tf`: Specifies the AWS provider and region for Terraform.
 - `variables.tf`: Defines the input variables used in the Terraform configuration.
-- `.github/workflows/pull.yml`: GitHub Actions workflow to validate Terraform configuration on pull requests.
+- `Jenkinsfile`: GitHub Actions workflow to validate Terraform configuration on pull requests.
 
 ## Infrastructure Components
 
@@ -50,7 +49,7 @@ To deploy the Jenkins infrastructure using Terraform, follow these steps:
 4. Run the `terraform init` following command to initialize Terraform.
 5. Run the `terraform plan` command to preview the changes that Terraform will make.
 6. If the plan looks good, run the `terraform apply` command to apply the changes and create the infrastructure.
-7. Terraform will create the specified resources in your AWS account. Once the deployment is complete, you can accessnJenkins using the public IP or DNS of the EC2 instance.
+7. Terraform will create the specified resources in your AWS account. Once the process is complete, you will see the output with the public IP address of the Jenkins server.
 
 ## Destroying the Infrastructure
 
@@ -58,20 +57,32 @@ To destroy the Jenkins infrastructure and clean up the resources, run the `terra
 
 Terraform will prompt you to confirm the destruction of the resources. Enter `yes` to proceed.
 
-## GitHub Actions Workflow
+## CI/CD Pipeline
+This repository follows a CI/CD process that integrates GitHub and Jenkins using webhooks to trigger automated workflows. The CI/CD process ensures that code quality, infrastructure validation, and versioning are handled automatically before code can be merged and released.
 
-The repository includes a GitHub Actions workflow:
+### CI/CD Workflow Overview
+#### GitHub -> Jenkins Integration
+- GitHub Webhook: A webhook is configured on this repository to trigger Jenkins jobs on specific GitHub events (e.g., pull requests).
+- Jenkins Pipelines: There is a single Jenkins pipelines (JenkinsFile) that handle Terraform code validation, and commit message validation using Conventional Commits standard.
 
-- `pull.yml`: Triggered when a pull request is created against the main branch. It validates the Terraform configuration.
+#### CI/CD Pipeline Flow
+##### Code Validation and commit message validation:
 
-## Contributing
+- Trigger: Pull requests to the main branch
+- This pipeline performs several checks to ensure the quality and validity of the Terraform infrastructure code and that the commit messages adhere to the Conventional Commits standard before allowing a merge.
 
-Please follow the standard GitHub workflow:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and commit them with descriptive messages.
-4. Push your changes to your forked repository.
-5. Submit a pull request to the main repository.
-
-Please ensure that your code follows the existing style and conventions used in the project.
+## Multiple Environments
+In order to deploy this infrastructure in multiple environments without duplicating the code and while maintaining distinct Terraform state files, I'd recommend using Terraform Workspaces
+1. **Create a new workspace:**
+   ```bash
+   terraform workspace new workspacenew
+2. **Switch to the new workspace:**
+   ```bash
+   terraform workspace select workspacenew 
+3. **List workspaces:**
+   ```bash
+   terraform workspace list 
+4. **Delete a workspace:**
+   ```bash
+   terraform workspace select default 
+   terraform workspace delete workspacenew 
